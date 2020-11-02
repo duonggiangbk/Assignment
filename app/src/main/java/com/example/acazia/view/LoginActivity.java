@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -27,7 +28,7 @@ import com.example.acazia.model.LoggedInUserView;
 import com.example.acazia.model.LoginFormState;
 import com.example.acazia.model.LoginResult;
 import com.example.acazia.viewmodel.LoginViewModel;
-import com.example.acazia.viewmodel.LoginViewModelFactory;
+import com.example.acazia.viewmodel.ViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+        loginViewModel = new ViewModelProvider(this, new ViewModelFactory())
                 .get(LoginViewModel.class);
 
         final EditText usernameEditText = findViewById(R.id.username);
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     updateUiWithUser(loginResult.getSuccess());
                 }
                 setResult(Activity.RESULT_OK);
-
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 //Complete and destroy login activity once successful
                 finish();
             }
